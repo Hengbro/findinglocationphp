@@ -19,7 +19,7 @@ class Tempat extends Model
         'imageTempat',
         'openH',
         'closeH',
-        'nameKategori',
+        'kategori',
         'imagaPemilik',
         'deskription',
         'status',

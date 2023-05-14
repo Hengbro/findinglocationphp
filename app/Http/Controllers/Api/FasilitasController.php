@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helper;
-use App\Models\ProdukTemp;
+use App\Models\Fasilitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PrductPlaceController extends Controller
+class FasilitasController extends Controller
 {
     use Helper;
     public function index()
@@ -24,7 +24,7 @@ class PrductPlaceController extends Controller
         $validasi = Validator::make($request->all(), [
             'tempatId' =>'required',
             'name'=> 'required',
-            'price'=> 'required',
+            'stock'=> 'required',
             'category'=>'required',
             'description'=> 'required',
         ]);
@@ -32,13 +32,13 @@ class PrductPlaceController extends Controller
         if ($validasi->fails()) {
             return $this->error('Kesalahan: ' . $validasi->errors()->first());
         }
-        $product = ProdukTemp::create($request->all());
-        return $this->success($product);
+        $fasilitas = Fasilitas::create($request->all());
+        return $this->success($fasilitas);
     }
     public function show($id)
     {
-        $product = ProdukTemp::where('tempatId', $id)->where('isActive', true)->get();
-        return $this->success($product);
+        $fasilitas = Fasilitas::where('tempatId', $id)->where('isActive', true)->get();
+        return $this->success($fasilitas);
     }
     public function edit($id)
     {
@@ -46,24 +46,24 @@ class PrductPlaceController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $product = ProdukTemp::where('id', $id)->first();
-        if($product){
-            $product->update($request->all());
-            return $this->success($product);
+        $fasilitas = Fasilitas::where('id', $id)->first();
+        if($fasilitas){
+            $fasilitas->update($request->all());
+            return $this->success($fasilitas);
         } else{
-            return $this->error('Produk tidak ditemukan');
+            return $this->error('Fasilitas tidak ditemukan');
         }
     }
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
-        $product = ProdukTemp::where('id', $id)->first();
-        if($product){
-            $product->update([
+        $fasilitas = Fasilitas::where('id', $id)->first();
+        if($fasilitas){
+            $fasilitas->update([
                 'isActive' => false
             ]);
-            return $this->success($product, "Produk berhasil di hapus");
+            return $this->success($fasilitas, "Fasilitas berhasil di hapus");
         }else{
-            return $this->error("Produk tidak di temukan");
+            return $this->error("Fasilitas tidak di temukan");
         }
     }
 
@@ -74,7 +74,7 @@ class PrductPlaceController extends Controller
             $image = str_replace(' ', '', $image);
             $image = date('Hs') . rand(1,999) . "_" . $image;
             $fileName = $image;
-            $request->image->storeAs('public/menuproduct', $image);
+            $request->image->storeAs('public/menufasilitas', $image);
 
             return  $this->success($fileName);
         }else{

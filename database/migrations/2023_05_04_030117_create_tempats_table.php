@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->integer('userId');
             $table->integer('alamatId')->nullable();
-            $table->integer('kategoriId')->nullable();
+            $table->integer('categoriId')->nullable();
             $table->string('nameTempat');
             $table->string('imageTempat')->nullable();
             $table->string('email');
             $table->string('phone');
             $table->string('kota');
-            $table->string('nameKategori');
+            $table->string('kategori');
             $table->string('openH');
             $table->string('closeH');
             $table->string('imagaPemilik')->nullable();
